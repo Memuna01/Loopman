@@ -6,9 +6,9 @@ class App extends React.Component{
     render(){
         return (
             <div className="main-container">
-                <nav className="navbar navbar-default" role="navigation">
+                <div role="navigation">
                     <Header />
-                </nav>
+                </div>
                 <div className="col-sm-10 col-sm-offset-1">
                     {this.props.children}
                 </div>                

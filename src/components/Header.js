@@ -19,7 +19,7 @@ class Header extends React.Component {
     function LogOutButton(props) {
     return (
       <li>
-        <button className="btn btn-danger log" style={{ paddingLeft: 15 }} onClick={props.onClick}>Log out 
+        <button className="btn btn-default btn-danger" onClick={props.onClick}>Log out 
         </button>
       </li>   
     );
@@ -32,20 +32,21 @@ class Header extends React.Component {
     }
 
     return (
-      <nav> 
-        <div className="nav n" style={{ margin: 15 }}>
+      <nav className="navbar navbar-default navbar-collapse"> 
+        <div className="container-fluid">
           <div className="navbar-header">
-            <Link className="navbar-brand" to="/">Loopman</Link>
-
+            <Link className="navbar-brand active" to="/">Loopman</Link>
           </div>
           <ul className="nav navbar-nav">
             <li>
-              <Link to="bookmarks">Favourites</Link>
+              <Link to="bookmarkss">Favourites</Link>
             </li>
           </ul>
-          <ul className="nav navbar-nav navbar-right" style={{ marginRight: 15 }}>
-            {button}
-          </ul>
+          <p className="navbar-btn">
+            <ul className="nav navbar-nav navbar-right">
+              {button}
+            </ul>
+          </p>
         </div>
       </nav>
     );

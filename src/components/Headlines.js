@@ -49,7 +49,7 @@ class Headlines extends React.Component {
                  <div className="col-sm-10 col-sm-offset-1" key={index} style={{textAlign: 'center'}}>
                     <div className="panel panel-default">
                         <div className="panel-heading">
-                            <h4> {article.publishedAt.slice(0, 10)} - {article.title} by {article.author}</h4>
+                            <h4> {article.publishedAt.slice(0, 10)} - {article.title} </h4>
                         </div>
                         <div className="panel-body">
                           <div className="row">
@@ -59,7 +59,7 @@ class Headlines extends React.Component {
                             <div className="col-sm-7">
                               {article.description} 
                               <br/>
-                              <a href={article.url} target="_blank">View Full Article...</a>
+                              <a href={article.url} target="_blank">...Go To Article...</a>
                             </div>
                           </div>
                         </div>
