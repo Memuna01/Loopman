@@ -1,29 +1,53 @@
 import React from 'react';
-import { Link } from 'react-router';
-import Search from './Search';
+import { Link, hashHistory } from 'react-router';
 
-class Header extends React.Component{
-    render(){
-        return (
-        <div className="col-sm-12" style={{margin: 15}}>
-            <div className="navbar-header">
-                 <Link className="navbar-brand" to="/">Loopman</Link>
+class Header extends React.Component {
+  constructor() {
+    super();
 
-            </div>
-            <ul className="nav navbar-nav">
-                <li>
-                    <Link to="bookmarks">Favourites</Link>
-                </li>
-            </ul>
-            <ul className="nav navbar-nav navbar-right" style={{marginRight: 15}}>
-                <li><button className="btn btn-info log" style={{paddingRight: 15}}><Link to="/login">Log In</Link></button></li>
-                <li><button className="btn btn-danger log" style={{paddingLeft: 15}}>Log out </button></li>
-            </ul>
-            
-        </div>
- 
-        )
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+  }
+
+
+  handleLogoutClick() {
+    localStorage.removeItem('id_token');
+    hashHistory.push('/login');
+  }
+
+  render() {
+    function LogOutButton(props) {
+      return (
+        <button className="btn btn-default btn-danger" onClick={ props.onClick }>Log out
+        </button>
+      );
     }
+
+    let button = null;
+    const IsLoggedIn = localStorage.getItem('id_token');
+    if (IsLoggedIn) {
+      button = < LogOutButton onClick={ this.handleLogoutClick } />
+    }
+
+    return (
+      <nav className="navbar navbar-default navbar-collapse">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link className="navbar-brand active" to="/">Loopman</Link>
+          </div>
+          <ul className="nav navbar-nav">
+            <li>
+              <Link to="favourites">Favourites</Link>
+            </li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right navbar-btn">
+            <li>
+              { button }
+            </li>
+          </ul>
+        </div>
+      </nav>
+    );
+  }
 }
 
 export default Header;
