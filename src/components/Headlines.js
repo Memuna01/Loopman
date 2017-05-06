@@ -46,14 +46,22 @@ class Headlines extends React.Component {
         function renderArticles () {
             return data.map((article, index) => {
              return (
-                 <div className="col-sm-6" key={index}>
-                    <div className="panel panel-primary">
+                 <div className="col-sm-10 col-sm-offset-1" key={index} style={{textAlign: 'center'}}>
+                    <div className="panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title"> <span className="btn">{article.title}</span></h3>
+                            <h4> {article.publishedAt.slice(0, 10)} - {article.title} by {article.author}</h4>
                         </div>
                         <div className="panel-body">
-                            { article.description } 
-                            <a href={article.url} target="_blank">...View Full Article...</a>
+                          <div className="row">
+                            <div className="col-sm-3">
+                              <img height="150" width="200" src={article.urlToImage} alt="article image" />
+                            </div>
+                            <div className="col-sm-7">
+                              {article.description} 
+                              <br/>
+                              <a href={article.url} target="_blank">View Full Article...</a>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>

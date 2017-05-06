@@ -32,21 +32,22 @@ class Header extends React.Component {
     }
 
     return (
-      <div className="col-sm-12" style={{ margin: 15 }}>
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">Loopman</Link>
+      <nav> 
+        <div className="nav n" style={{ margin: 15 }}>
+          <div className="navbar-header">
+            <Link className="navbar-brand" to="/">Loopman</Link>
 
+          </div>
+          <ul className="nav navbar-nav">
+            <li>
+              <Link to="bookmarks">Favourites</Link>
+            </li>
+          </ul>
+          <ul className="nav navbar-nav navbar-right" style={{ marginRight: 15 }}>
+            {button}
+          </ul>
         </div>
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="bookmarks">Favourites</Link>
-          </li>
-        </ul>
-        <ul className="nav navbar-nav navbar-right" style={{ marginRight: 15 }}>
-          {button}
-        </ul>
-      </div>
-
+      </nav>
     );
   }
 }
