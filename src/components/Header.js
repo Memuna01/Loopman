@@ -1,9 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import Search from './Search';
 
 class Header extends React.Component {
-  render() {
+  constructor(){
+    super();
+
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+  }
+
+ 
+  handleLogoutClick(){
+    localStorage.removeItem('id_token');
+    hashHistory.push('/login');
+  }
+
+  render() {    
+    function LogOutButton(props) {
+    return (
+      <li>
+        <button className="btn btn-danger log" style={{ paddingLeft: 15 }} onClick={props.onClick}>Log out 
+        </button>
+      </li>   
+    );
+    }
+
+    let button = null;
+    const IsLoggedIn = localStorage.getItem('id_token');
+    if(IsLoggedIn){
+      button = < LogOutButton onClick={this.handleLogoutClick}/>
+    }
+
     return (
       <div className="col-sm-12" style={{ margin: 15 }}>
         <div className="navbar-header">
@@ -16,10 +43,8 @@ class Header extends React.Component {
           </li>
         </ul>
         <ul className="nav navbar-nav navbar-right" style={{ marginRight: 15 }}>
-          <li><button className="btn btn-info log" style={{ paddingRight: 15 }}><Link to="/login">Log In</Link></button></li>
-          <li><button className="btn btn-danger log" style={{ paddingLeft: 15 }}>Log out </button></li>
+          {button}
         </ul>
-
       </div>
 
     );

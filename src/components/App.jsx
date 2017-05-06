@@ -11,11 +11,7 @@ class App extends React.Component{
                 </nav>
                 <div className="col-sm-10 col-sm-offset-1">
                     {this.props.children}
-                </div>
-                
-                <div className="container">
-                    
-                </div>
+                </div>                
             </div>
             
         )

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GoogleLogin from 'react-google-login';
+import { hashHistory } from 'react-router';
+
  
 class Login extends React.Component{
   constructor(){
@@ -8,12 +10,10 @@ class Login extends React.Component{
   }
 
 storeUserData(response){
-  var product = { "id": new_id, "name": productIds[new_id]["name"], "price": productIds[new_id]["price"], "quantity": 1 };
-  currentCart.push(product);
-  //pushing item to local storage
-  localStorage.setItem("shoppingCart", JSON.stringify(currentCart));
-
+  localStorage.setItem('id_token', response.googleId);
   console.log(response);
+  console.log("response id",response.googleId);;
+  hashHistory.push('/');
 }
 
 responseGoogle(response){
