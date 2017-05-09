@@ -1,52 +1,58 @@
 import React from 'react';
 import { Link, hashHistory } from 'react-router';
-import Search from './Search';
+import Login from './Login';
+
 
 class Header extends React.Component {
-  constructor(){
+  constructor() {
     super();
 
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
- 
-  handleLogoutClick(){
+
+  handleLogoutClick() {
     localStorage.removeItem('id_token');
-    hashHistory.push('/login');
+    hashHistory.push('/');
   }
 
-  render() {    
+  render() {
     function LogOutButton(props) {
-    return (
-      <li>
-        <button className="btn btn-danger log" style={{ paddingLeft: 15 }} onClick={props.onClick}>Log out 
+      return (
+        <button className="btn btn-default btn-danger" onClick={props.onClick}>Log out
         </button>
-      </li>   
-    );
+      );
     }
 
     let button = null;
     const IsLoggedIn = localStorage.getItem('id_token');
-    if(IsLoggedIn){
-      button = < LogOutButton onClick={this.handleLogoutClick}/>
+    if (IsLoggedIn) {
+      button = <LogOutButton onClick={this.handleLogoutClick} />;
+    }else{
+      button = <Login />;
     }
 
     return (
-      <div className="col-sm-12" style={{ margin: 15 }}>
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">Loopman</Link>
-
+      <nav className="navbar navbar-default navbar-collapse" style={{marginBottom: 0}}>
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <Link className="navbar-brand active" to="/">Loopman</Link>
+          </div>
+          <ul className="nav navbar-nav">
+            <li>
+              <Link to="sources">News Sources</Link>
+            </li>
+            <li>
+              <Link to="favourites">Favourites</Link>
+            </li>            
+          </ul>
+          <ul className="nav navbar-nav navbar-right navbar-btn">
+            <li>
+              {button}
+            </li>
+          </ul>
         </div>
-        <ul className="nav navbar-nav">
-          <li>
-            <Link to="bookmarks">Favourites</Link>
-          </li>
-        </ul>
-        <ul className="nav navbar-nav navbar-right" style={{ marginRight: 15 }}>
-          {button}
-        </ul>
-      </div>
-
+      </nav>
     );
   }
 }

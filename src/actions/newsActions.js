@@ -1,19 +1,20 @@
 import * as newsAPI from '../utils/newsAPI';
 import Dispatcher from '../dispatcher/dispatcher.js';
+import newsConstants from '../constants/newsConstants';
 
 export function getNewsSources() {
-  newsAPI.getNewsSources((data) => {
+  newsAPI.getNewsSourcesApi((data) => {
     Dispatcher.dispatch({
-      actionType: 'GET_NEWS_SOURCES',
+      actionType: newsConstants.GET_NEWS_SOURCES,
       data,
     });
   });
 }
 
 export function getNewsArticles(source, option) {
-  newsAPI.getNewsArticles(source, option, (data) => {
+  newsAPI.getNewsArticlesApi(source, option, (data) => {
     Dispatcher.dispatch({
-      actionType: 'GET_NEWS_ARTICLES',
+      actionType: newsConstants.GET_NEWS_ARTICLES,
       data,
     });
   });

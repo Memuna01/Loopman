@@ -1,7 +1,30 @@
 import React from 'react';
 import * as newsActions from '../actions/newsActions';
-import newsstores from '../stores/newsstores';
+import newsstores from '../stores/articlesStore';
 
+const renderArticles = (data) => data.map((article, index) => (
+  <div className="col-sm-8 col-sm-offset-2" key={index}>
+    <div className="panel panel-default">
+      <div className="panel-heading">
+        <h4> {article.publishedAt && article.publishedAt.slice(0, 10)} - {article.title} </h4>
+      </div>
+
+      <div className="panel-body">
+        <div className="row">
+          <div className="col-sm-4">
+            <img width='200' height='150' src={article.urlToImage} alt='image' />
+          </div>
+          <div className="col-sm-8">
+            {article.description}
+            <br/> <br/>
+            <a className="btn btn-primary" href={article.url} target="_blank">View Article</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+));
 
 class Headlines extends React.Component {
   constructor() {
@@ -18,55 +41,28 @@ class Headlines extends React.Component {
     this.setState({ articles: newsstores.fetchNewsArticles() });
   }
 
-  getNewsArticlesFromAction(){
-
-  }
-  
-  componentWillMount(){
+  componentDidMount() {
     const articleId = this.props.location.query.source;
     const articleFilter = this.props.location.query.sortBy;
 
     newsActions.getNewsArticles(articleId, articleFilter);
-    newsstores.on('articles_change', this.fetchNewsArticles);
-      
+    newsstores.addChangeListener(this.fetchNewsArticles);
   }
 
-  componentDidMount() {
+  componentWillUnmount() {
+    newsstores.removeChangeListener(this.fetchNewsArticles);
   }
 
-  componentWillUnmount(){
-      newsstores.removeListener('articles_change', this.fetchNewsArticles);
-  }
-
-    render(){
-        const data = this.state.articles.articles;
-        console.log("source name",this.state.articles.source);
-        const newSourceName = this.state.articles.source;
-
-        function renderArticles () {
-            return data.map((article, index) => {
-             return (
-                 <div className="col-sm-6" key={index}>
-                    <div className="panel panel-primary">
-                        <div className="panel-heading">
-                            <h3 className="panel-title"> <span className="btn">{article.title}</span></h3>
-                        </div>
-                        <div className="panel-body">
-                            { article.description } 
-                            <a href={article.url} target="_blank">...View Full Article...</a>
-                        </div>
-                    </div>
-                </div>
-             );
-            });
-        }
-        return (
-             <div> 
-                <h2 style={{textAlign: 'center'}}>News From {newSourceName && newSourceName.split("-").join(" ").toUpperCase()}</h2>
-                <p></p>
-               {data && <div>{renderArticles()}</div>}
-            </div>  
-        );
+  render() {
+    const data = this.state.articles.articles;
+    const newSourceName = this.state.articles.source;
+     return (
+      <div>
+        <h2 style={{textAlign:'center'}}>News From {newSourceName && newSourceName.split('-').join(' ').toUpperCase()}</h2>
+        <br />
+        {data && <div>{renderArticles(data)}</div>}
+      </div>
+    );
   }
 }
 

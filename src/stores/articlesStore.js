@@ -1,38 +1,31 @@
 import { EventEmitter } from 'events';
 import Dispatcher from '../dispatcher/dispatcher';
+import newsConstants from '../constants/newsConstants';
 
 class NewsStores extends EventEmitter {
   constructor() {
     super();
-    this.sources = [];
-    this.articles = [];
-  }
 
-  fetchNewsSources() {
-    return this.sources;
+    this.articles = [];
   }
 
   fetchNewsArticles() {
     return this.articles;
   }
+  addChangeListener(callback) {
+    this.on('change', callback);
+  }
+  removeChangeListener(callback) {
+    this.removeListener('change', callback);
+  }
 
   handleNewsAction(result) {
     switch (result.actionType) {
-      case 'GET_NEWS_SOURCES': {
-        this.sources = result.data;
-        this.emit('sources_change');
-        break;
-      }
-    }
-
-    switch (result.actionType) {
-      case 'GET_NEWS_ARTICLES': {
+      case newsConstants.GET_NEWS_ARTICLES:
         this.articles = result.data;
-        this.emit('articles_change');
+        this.emit('change');
         break;
-      }
     }
-    
   }
 
 }
